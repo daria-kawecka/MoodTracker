@@ -1,7 +1,7 @@
-import React from 'react';
-import { View, Text, StyleSheet, Pressable } from 'react-native';
-import { MoodOptionType } from '../types';
+import React, { FC, useCallback, useState } from 'react';
+import { Text, View, StyleSheet, Pressable } from 'react-native';
 import { theme } from '../theme';
+import { MoodOptionType } from '../types';
 import { PrimaryButton } from './PrimaryButton';
 
 const moodOptions: MoodOptionType[] = [
@@ -12,40 +12,56 @@ const moodOptions: MoodOptionType[] = [
   { emoji: '😤', description: 'frustrated' },
 ];
 
-export const MoodPicker: React.FC = () => {
-  const [selectedMood, setSelectedMood] = React.useState<MoodOptionType>();
+type MoodPickerProps = {
+  handleSelectMood: (mood: MoodOptionType) => void;
+};
+
+export const MoodPicker: FC<MoodPickerProps> = ({ handleSelectMood }) => {
+  const [selectedMood, setSelectedMood] = useState<MoodOptionType>();
+
+  const handleSelect = useCallback(() => {
+    if (selectedMood) {
+      handleSelectMood(selectedMood);
+      setSelectedMood(undefined);
+    }
+  }, [handleSelectMood, selectedMood]);
 
   return (
     <View style={styles.container}>
-      <Text style={styles.heading}>How are you right now?</Text>
+      <Text style={styles.headerText}>How are you right now?</Text>
       <View style={styles.moodList}>
         {moodOptions.map(option => (
-          <View>
+          <View key={option.emoji}>
             <Pressable
               onPress={() => setSelectedMood(option)}
-              key={option.emoji}
               style={[
                 styles.moodItem,
-                option.emoji === selectedMood?.emoji
+                selectedMood?.emoji === option.emoji
                   ? styles.selectedMoodItem
                   : undefined,
               ]}>
-              <Text style={styles.moodText}>{option.emoji}</Text>
+              <Text key={option.emoji}>{option.emoji}</Text>
             </Pressable>
             <Text style={styles.descriptionText}>
-              {selectedMood?.emoji === option.emoji ? option.description : ' '}
+              {option.emoji === selectedMood?.emoji
+                ? option.description
+                : undefined}
             </Text>
           </View>
         ))}
       </View>
-      <PrimaryButton text="Choose" />
+      <PrimaryButton text="Choose" click={() => handleSelect(selectedMood)} />
     </View>
   );
 };
 
 const styles = StyleSheet.create({
-  moodText: {
-    fontSize: 24,
+  container: {
+    borderWidth: 2,
+    borderColor: theme.colorPurple,
+    margin: 10,
+    borderRadius: 10,
+    padding: 20,
   },
   moodList: {
     flexDirection: 'row',
@@ -60,41 +76,21 @@ const styles = StyleSheet.create({
     marginBottom: 5,
   },
   selectedMoodItem: {
+    borderColor: '#fff',
     borderWidth: 2,
-    backgroundColor: theme.colorPurple,
-    borderColor: theme.colorWhite,
+    backgroundColor: '#454C73',
   },
   descriptionText: {
-    color: theme.colorPurple,
+    color: '#454C73',
     fontWeight: 'bold',
-    fontSize: 10,
     textAlign: 'center',
+    fontSize: 10,
   },
-  container: {
-    borderWidth: 2,
-    borderColor: theme.colorPurple,
-    margin: 10,
-    borderRadius: 10,
-    padding: 20,
-  },
-  heading: {
+  headerText: {
+    textAlign: 'center',
     fontSize: 20,
     fontWeight: 'bold',
     letterSpacing: 1,
-    textAlign: 'center',
     marginBottom: 20,
-  },
-  button: {
-    backgroundColor: theme.colorPurple,
-    width: 150,
-    borderRadius: 20,
-    marginTop: 20,
-    alignSelf: 'center',
-    padding: 10,
-  },
-  buttonText: {
-    color: theme.colorWhite,
-    textAlign: 'center',
-    fontWeight: 'bold',
   },
 });
