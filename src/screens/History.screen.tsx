@@ -1,10 +1,15 @@
 import React, { FC } from 'react';
-import { Text, View } from 'react-native';
+import { View } from 'react-native';
+import { useAppContext } from '../App.provider';
+import { MoodItemRow } from '../components/MoodItemRow';
 
 export const History: FC = () => {
+  const { moodList } = useAppContext();
   return (
     <View>
-      <Text>History</Text>
+      {moodList.map(item => (
+        <MoodItemRow item={item} key={item.timestamp} />
+      ))}
     </View>
   );
 };

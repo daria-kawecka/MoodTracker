@@ -1,4 +1,5 @@
-import { MoodOptionType } from './types';
+import { ReactNode } from 'react';
+
 export type MoodOptionType = {
   emoji: string;
   description: string;
@@ -7,4 +8,8 @@ export type MoodOptionType = {
 export type MoodOptionWithTimestamp = {
   mood: MoodOptionType;
   timestamp: number;
+};
+
+export type AppProviderProps = {
+  children: ReactNode;
 };

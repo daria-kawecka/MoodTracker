@@ -4,11 +4,12 @@ import { theme } from '../theme';
 
 type ButtonProps = {
   text: string;
+  click: () => void;
 };
 
-export const PrimaryButton: FC<ButtonProps> = ({ text }) => {
+export const PrimaryButton: FC<ButtonProps> = ({ text, click }) => {
   return (
-    <Pressable style={styles.container}>
+    <Pressable style={styles.container} onPress={click}>
       <Text style={styles.buttonText}>{text}</Text>
     </Pressable>
   );
