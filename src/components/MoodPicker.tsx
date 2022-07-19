@@ -73,12 +73,14 @@ export const MoodPicker: FC<MoodPickerProps> = ({ handleSelectMood }) => {
 
 const styles = StyleSheet.create({
   container: {
+    height: 240,
     borderWidth: 2,
     borderColor: theme.colorPurple,
     margin: 10,
     borderRadius: 10,
     padding: 20,
     backgroundColor: 'rgba(0,0,0,0.2)',
+    justifyContent: 'space-between',
   },
   moodList: {
     flexDirection: 'row',
@@ -99,17 +101,16 @@ const styles = StyleSheet.create({
   },
   descriptionText: {
     color: theme.colorPurple,
-    fontWeight: 'bold',
+    fontFamily: theme.fontFamilyRegular,
     textAlign: 'center',
     fontSize: 10,
   },
   headerText: {
     textAlign: 'center',
     fontSize: 20,
-    fontWeight: 'bold',
     letterSpacing: 1,
-    marginBottom: 20,
     color: theme.colorWhite,
+    fontFamily: theme.fontFamilyBold,
   },
   image: {
     alignSelf: 'center',
