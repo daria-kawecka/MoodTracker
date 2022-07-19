@@ -7,6 +7,7 @@ import React, {
   useState,
 } from 'react';
 import {
+  AppContextType,
   AppProviderProps,
   MoodOptionType,
   MoodOptionWithTimestamp,
@@ -34,11 +35,6 @@ const getAppData = async (): Promise<AppData | undefined> => {
   } catch {}
 };
 
-type AppContextType = {
-  moodList: MoodOptionWithTimestamp[];
-  handleSelectMood: (mood: MoodOptionType) => void;
-};
-
 const AppContext = createContext<AppContextType>({
   moodList: [],
   handleSelectMood: () => {},
@@ -56,7 +52,6 @@ export const AppProvider: FC<AppProviderProps> = ({ children }) => {
       setAppData({ moodList: newMoodList });
       return newMoodList;
     });
-    console.log(moodList);
   }, []);
 
   useEffect(() => {

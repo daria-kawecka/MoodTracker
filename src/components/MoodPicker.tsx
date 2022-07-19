@@ -1,8 +1,10 @@
 import React, { FC, useCallback, useState } from 'react';
-import { Text, View, StyleSheet, Pressable } from 'react-native';
+import { Text, View, StyleSheet, Pressable, Image } from 'react-native';
 import { theme } from '../theme';
 import { MoodOptionType } from '../types';
 import { PrimaryButton } from './PrimaryButton';
+
+const imageSrc = require('../../assets/butterflies.png');
 
 const moodOptions: MoodOptionType[] = [
   { emoji: '🧑‍💻', description: 'studious' },
@@ -18,13 +20,27 @@ type MoodPickerProps = {
 
 export const MoodPicker: FC<MoodPickerProps> = ({ handleSelectMood }) => {
   const [selectedMood, setSelectedMood] = useState<MoodOptionType>();
+  const [hasSelected, setHasSelected] = useState(false);
 
   const handleSelect = useCallback(() => {
     if (selectedMood) {
       handleSelectMood(selectedMood);
       setSelectedMood(undefined);
+      setHasSelected(true);
     }
   }, [handleSelectMood, selectedMood]);
+
+  if (hasSelected) {
+    return (
+      <View style={styles.container}>
+        <Image source={imageSrc} style={styles.image} />
+        <PrimaryButton
+          text="Choose another!"
+          click={() => setHasSelected(false)}
+        />
+      </View>
+    );
+  }
 
   return (
     <View style={styles.container}>
@@ -50,7 +66,7 @@ export const MoodPicker: FC<MoodPickerProps> = ({ handleSelectMood }) => {
           </View>
         ))}
       </View>
-      <PrimaryButton text="Choose" click={() => handleSelect(selectedMood)} />
+      <PrimaryButton text="Choose" click={handleSelect} />
     </View>
   );
 };
@@ -62,6 +78,7 @@ const styles = StyleSheet.create({
     margin: 10,
     borderRadius: 10,
     padding: 20,
+    backgroundColor: 'rgba(0,0,0,0.2)',
   },
   moodList: {
     flexDirection: 'row',
@@ -78,10 +95,10 @@ const styles = StyleSheet.create({
   selectedMoodItem: {
     borderColor: '#fff',
     borderWidth: 2,
-    backgroundColor: '#454C73',
+    backgroundColor: theme.colorPurple,
   },
   descriptionText: {
-    color: '#454C73',
+    color: theme.colorPurple,
     fontWeight: 'bold',
     textAlign: 'center',
     fontSize: 10,
@@ -92,5 +109,9 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     letterSpacing: 1,
     marginBottom: 20,
+    color: theme.colorWhite,
+  },
+  image: {
+    alignSelf: 'center',
   },
 });
