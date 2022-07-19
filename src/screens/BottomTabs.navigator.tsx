@@ -1,6 +1,5 @@
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import React, { FC } from 'react';
-import { Text } from 'react-native';
 import { AnalyticsIcon, HistoryIcon, HomeIcon } from '../components/Icons';
 import { theme } from '../theme';
 import { Analytics } from './Analytics.screen';
