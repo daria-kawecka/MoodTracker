@@ -13,3 +13,8 @@ export type MoodOptionWithTimestamp = {
 export type AppProviderProps = {
   children: ReactNode;
 };
+
+export type AppContextType = {
+  moodList: MoodOptionWithTimestamp[];
+  handleSelectMood: (mood: MoodOptionType) => void;
+};
