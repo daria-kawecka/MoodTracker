@@ -17,6 +17,11 @@ export const Home: FC = () => {
 };
 
 const styles = StyleSheet.create({
+  square: {
+    width: 100,
+    height: 100,
+    backgroundColor: 'lightgreen',
+  },
   container: {
     flex: 1,
     justifyContent: 'center',
