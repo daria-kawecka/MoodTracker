@@ -17,4 +17,5 @@ export type AppProviderProps = {
 export type AppContextType = {
   moodList: MoodOptionWithTimestamp[];
   handleSelectMood: (mood: MoodOptionType) => void;
+  handleDeleteMood: (moodToDelete: MoodOptionWithTimestamp) => void;
 };
