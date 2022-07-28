@@ -1,15 +1,15 @@
 import React, { FC } from 'react';
-import { View } from 'react-native';
+import { ScrollView } from 'react-native';
 import { useAppContext } from '../App.provider';
 import { MoodItemRow } from '../components/MoodItemRow';
 
 export const History: FC = () => {
   const { moodList } = useAppContext();
   return (
-    <View>
-      {moodList.map(item => (
+    <ScrollView>
+      {moodList.slice().map(item => (
         <MoodItemRow item={item} key={item.timestamp} />
       ))}
-    </View>
+    </ScrollView>
   );
 };

@@ -37,6 +37,8 @@ export const MoodPicker: FC<MoodPickerProps> = ({ handleSelectMood }) => {
         <PrimaryButton
           text="Choose another!"
           click={() => setHasSelected(false)}
+          selectedMood={selectedMood}
+          withOpacity={false}
         />
       </View>
     );
@@ -66,7 +68,12 @@ export const MoodPicker: FC<MoodPickerProps> = ({ handleSelectMood }) => {
           </View>
         ))}
       </View>
-      <PrimaryButton text="Choose" click={handleSelect} />
+      <PrimaryButton
+        text="Choose"
+        click={handleSelect}
+        selectedMood={selectedMood}
+        withOpacity={true}
+      />
     </View>
   );
 };
